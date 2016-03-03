@@ -14,7 +14,7 @@ from OA_tools import get_xy_range
 
 
 def test_get_boundary_coords():
-    'Test 1d nearest neighbor functionality.'
+
     x = np.arange(1000.)
     y = np.arange(1000.)
     truth = {'southwest': (np.max(x), np.min(y)), 'northeast': (np.min(x), np.max(y))}

@@ -31,10 +31,20 @@ def test_get_xy_steps():
     x_dim = 100
     y_dim = 100
     
-    truth = np.array((10, 10))
+    truth = np.array((11, 11))
     
     assert_array_equal(truth, get_xy_steps(bbox, x_dim, y_dim))
     
+def test_get_xy_range():
+    
+    x = np.arange(1000.)
+    y = np.arange(1000.)
+    
+    bbox = get_boundary_coords(x, y)
+    
+    truth = np.array((999, 999))
+    
+    assert_array_equal(truth, get_xy_range(bbox))
     
     
     

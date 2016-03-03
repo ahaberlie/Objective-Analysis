@@ -99,6 +99,22 @@ def smoothed_freq_map(x_points, y_points, bbox, x_steps, y_steps, gaussian):
 
 
 def generate_grid(x_dim, y_dim, bbox):
+    '''Generate a meshgrid based on bounding box and x & y resolution
+    
+    Parameters
+    ----------
+    x_dim: integer
+        x resolution in meters
+    y_dim: integer
+        y resolution in meters
+    bbox: dictionary
+        dictionary containing coordinates for corners of study area
+    
+    Returns
+    -------
+    (X, Y) ndarray
+        meshgrid defined by given bounding box
+    '''
     
     x_steps, y_steps = get_xy_steps(bbox, x_dim, y_dim)
     grid_x = np.linspace(bbox['northeast'][0], bbox['southwest'][0], x_steps)
@@ -110,10 +126,34 @@ def generate_grid(x_dim, y_dim, bbox):
     
 
 def generate_grid_coords(gx, gy):
+    '''Calculate x,y coordinates of each grid cell
+    
+    Parameters
+    ----------
+    gx: numeric
+        x coordinates in meshgrid
+    gy: numeric
+        y coordinates in meshgrid
+    
+    Returns
+    -------
+    (X, Y) ndarray
+        List of coordinates in meshgrid
+    '''
     
     return np.vstack([gx.ravel(), gy.ravel()]).T
 
 def get_xy_range(bbox):
+    '''Returns x and y ranges in meters based on bounding box
+    
+    bbox: dictionary
+        dictionary containing coordinates for corners of study area
+    
+    Returns
+    -------
+    X, Y: numeric
+        X and Y ranges in meters
+    '''
     
     x_range = bbox['southwest'][0] - bbox['northeast'][0] 
     y_range = bbox['northeast'][1] - bbox['southwest'][1]
@@ -121,6 +161,20 @@ def get_xy_range(bbox):
     return x_range, y_range
     
 def get_xy_steps(bbox, x_dim, y_dim):
+    '''Return meshgrid spacing based on bounding box
+    
+    bbox: dictionary
+        dictionary containing coordinates for corners of study area
+    x_dim: integer
+        x resolution in meters
+    y_dim: integer
+        y resolution in meters
+    
+    Returns
+    -------
+    (X,Y): ndarray
+        List of all X and Y centers used to create a meshgrid
+    '''
     
     x_range, y_range = get_xy_range(bbox)
     
@@ -130,6 +184,18 @@ def get_xy_steps(bbox, x_dim, y_dim):
     return x_steps, y_steps
     
 def get_boundary_coords(x, y):
+    '''Return bounding box based on given x and y coordinates
+    
+    x: numeric
+        x coordinates
+    y: numeric
+        y coordinates
+    
+    Returns
+    -------
+    bbox: dictionary
+        dictionary containing coordinates for corners of study area
+    '''
     
     west = np.max(x)
     east = np.min(x)
